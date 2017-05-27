@@ -125,6 +125,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+#User Authentication Config
+LOGIN_URL = "/user/login/"
 
 #Bootstrap3 Config
 bootstrap3 = {
