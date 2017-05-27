@@ -1,0 +1,6 @@
+[client]
+database = suzhou
+host = localhost
+user = root
+password = Zhu120515
+default-character-set = utf8
