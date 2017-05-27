@@ -11,3 +11,6 @@ def index(request):
 
 def about(request):
 	return render(request, 'main/about.html')
+
+def map(request):
+	return render(request, 'main/map.html')

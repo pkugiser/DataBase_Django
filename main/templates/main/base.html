@@ -1,30 +1,41 @@
 {% load bootstrap3 %}
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE-edge">
-	<meta name="viewpoint" content="width=device-width, initial-scale=1">
-	<title>DBMSA</title>
-	{% bootstrap_css %}
-	{% bootstrap_javascript %}
-</head>
-<body>
-<!-- Static Navbar -->
-{% block nav %}
-	{% include "main/nav.html" %}
-{% endblock nav %}
-<div class="container">
-	<div class="page-header">
-	<!-- Normal Header -->
-		{% block header %}
-		{% endblock header %}
-	</div>
-	<div>
-	<!-- Body&Content -->
-		{% block content %}
-		{% endblock content %}
-	</div>
-</div>
-</body>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE-edge">
+		<meta name="viewpoint" content="width=device-width, initial-scale=1">
+		<title>DBMSA</title>
+		{% bootstrap_css %}
+		{% bootstrap_javascript %}
+	</head>
+	<body>
+		<!-- Static Navbar -->
+		{% block nav %}
+			{% include "main/nav.html" %}
+		{% endblock nav %}
+		<div class="container">
+			<div id="custom-search-input">
+				<div class="input-group col-md-10">
+					<input type="text" class="form-control input-md" placeholder="Search" />
+					<span class="input-group-btn">
+						<button class="btn btn-info btn-md" type="button">
+						<i class="glyphicon glyphicon-search"></i>
+						</button>
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="">
+				{% block header %}
+				{% endblock header %}
+			</div>
+			<div>
+				<!-- Body&Content -->
+				{% block content %}
+				{% endblock content %}
+			</div>
+		</div>
+	</body>
 </html>
