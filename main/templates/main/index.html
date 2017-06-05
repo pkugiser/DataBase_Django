@@ -1,8 +1,52 @@
 {% extends "main/base.html" %}
 {% block header %}
 	<!-- 	<div class="jumbotron" >
-			<h2 class="text-center" >DATABASE MANAEMENT SYSTEM ASSIGNMENT</h2>
+			<h2 class="text-center" >微博数据分析</h2>
 	</div> -->
 {% endblock header %}
 {% block content %}
+	<header class="col-xs-12 text-center infoheader">
+		<h2 style="color:lightblue" class="text-lg-center">Weibo Data Analysis</h2>
+		<p style="color:lightblue">
+			Processing the data crawled from weibo.com, Powered by
+			<a href="http://www.numpy.org/" target="_blank" class="external" rel="nofollow">numpy</a> ,
+			<a href="https://plot.ly/" target="_blank" class="external" rel="nofollow">plotly</a>
+			and <a href="https://matplotlib.org/basemap/" target="_blank" class="external" rel="nofollow">matplotlib_basemap</a> .
+		</p>
+	</header>
+	<div class="container">
+		<section class="col-xs-12 newsletters">
+			<div class="row">
+				<div class="col-6 col-md-6">
+					<a href="{% url 'main:emotionanalysis'%}">
+						<img class="img-thumbnail" height="400" width="400" src="http://i01.pic.sogou.com/2942371688d6c300" alt="">
+					</a>
+					<h4 style="color: lightblue">情绪分析</h4>
+					<p style="color: lightblue">Text2Emotion Analysis based on database table TravelPoiWeibosSuzhou.</p>
+				</div>
+				<div class="col-6 col-md-6">
+					<a href="{% url 'main:daypartsanalysis'%}">
+						<img height="400" width="400" class="img-thumbnail" src="http://p1.bpimg.com/563148/25c9fc0372dfbe24.jpg" alt="">
+					</a>
+					<h4 style="color: lightblue">时段统计</h4>
+					<p style="color: lightblue">Dayparts Analysis based on database table TravelPoiWeibosSuzhou.</p>
+				</div>
+				<div class="col-6 col-md-6">
+					<a href="{% url 'main:poianalysis'%}">
+						<img height="400" width="400" class="img-thumbnail" src="http://img.mp.itc.cn/upload/20170413/e7aecb6155fd4dd098c1cb11e8308dc7.jpeg" alt="">
+					</a>
+					<h4 style="color: lightblue">兴趣点提取</h4>
+					<p style="color: lightblue">POI Analysis based on database table TravelPoiWeibosSuzhou.</p>
+				</div>
+				<div class="col-6 col-md-6">
+					<a href="{% url 'main:regionanalysis'%}">
+						<img height="400" width="400" class="img-thumbnail" src="http://i01.pictn.sogoucdn.com/663da707c80217b5" alt="">
+					</a>
+					<h4 style="color: lightblue">地理位置</h4>
+					<p style="color: lightblue">Region Analysis based on database table TravelPoiUserinfoSuzhou</p>
+				</div>
+			</div>
+		</section>
+	</div>
 {% endblock content %}
+<!-- 旅游地域统计 -->

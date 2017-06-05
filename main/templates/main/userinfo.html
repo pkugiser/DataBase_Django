@@ -1,0 +1,46 @@
+{% extends "main/base_nsb.html" %}
+{% block header %}
+	<div style="color: lightblue">
+		<h2 >UserInfo</h2>
+		<h3 style="color: lightblue">
+		<p><i>NickName</i> {{user.screen_name}} <i>From</i> {{user.location}} </p>
+		<small><p style="color: lightblue"><i>Description</i>: {{user.description}}</p></small>
+		</h3>
+		<div align="right" style="color: #0095ff">
+			<a href="{% url 'main:ea' user.id %}">情绪分析</a>
+			<a href="{% url 'main:da' user.id %}">时段统计</a>
+			<a href="{% url 'main:pa' user.id %}">兴趣点提取</a>
+			<a href="{% url 'main:ra' user.id %}">地理位置</a>
+		</div>
+	</div>
+{% endblock header %}
+{% block content %}
+	<div class="container">
+		{% for item in data %}
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<i style="color: lightblue">TimeStamp: {{ item.created_at}}</i>
+				</div>
+				<div class="panel-body">
+					<strong>
+					<p>Location (latitude: {{item.latitude}}  longitude: {{item.longitude}}) </p>
+					</strong>
+					{{ item.text }}
+				</div>
+			</div>
+			{% empty %}
+			There are no entries in the database.
+		{% endfor %}
+	</div>
+	<!-- 另一种分页显示方式 -->
+	<p class="text-center">
+		{% if data.has_previous %}
+			<a href="?page={{ data.previous_page_number }}&string={{string}}">Previous</a>
+		{% endif %}
+		{# data.paginator.number_pages 返回总页数 #}
+		<i style="color: lightblue">Page {{ data.number }} of {{ data.paginator.num_pages }}.</i>
+		{% if data.has_next %}
+			<a href="?page={{ data.next_page_number }}&string={{string}}">Next</a>
+		{% endif %}
+	</p>
+{% endblock content %}

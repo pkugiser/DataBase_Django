@@ -7,21 +7,44 @@
 		<meta name="viewpoint" content="width=device-width, initial-scale=1">
 		{% bootstrap_css %}
 		{% bootstrap_javascript %}
+		<style type="text/css">
+		html,body{height:100%}
+		.footer {margin-top:-30px;height:30px;}
+		.wrap{min-height:100%}
+		.main{padding-bottom:30px;overflow:hidden;}
+		</style>
 	</head>
-	<body>
-		<!-- Static Navbar -->
-		{% block nav %}
-			{% include "main/nav.html" %}
-		{% endblock nav %}
-		<div class="container">
-			<div class="page-header">
-				{% block header %}
-				{% endblock header %}
+	<body background="http://www.pzpu.com/wp-content/uploads/2016/07/20160715040809-60.jpg">
+		<div class="wrap">
+			<div class="main">
+				
+				{% block nav %}
+					{% include "main/nav.html" %}
+				{% endblock nav %}
+				<div class="container">
+					<div class="page-header">
+						{% block header %}
+						{% endblock header %}
+					</div>
+					<div>
+						<!-- Body&Content -->
+						{% block content %}
+						{% endblock content %}
+					</div>
+				</div>
 			</div>
-			<div>
-				<!-- Body&Content -->
-				{% block content %}
-				{% endblock content %}
+		</div>
+		
+		<div class="footer">
+			<div class="container">
+				<small>
+				<p style="color: lightblue" class="text-center">© 2017 DBA.
+					由 <a href="https://www.djangoproject.com/" target="_blank" class="external" rel="nofollow">Django</a> 强力驱动.
+				</p>
+				<p style="color: lightblue" class="text-center">
+					Made By <a href="{% url 'main:about' %}" target="_blank" class="external" rel="nofollow">DBA Group</a>.
+				</p>
+				</small>
 			</div>
 		</div>
 	</body>

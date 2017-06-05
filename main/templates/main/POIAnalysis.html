@@ -1,0 +1,16 @@
+{% extends "main/base.html" %}
+{% block header %}
+	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+	<h3 style="color: lightblue">POI Analysis</h3>
+{% endblock header %}
+{% block content %}
+	<div class="container">
+		{%if plot %}
+		<p style="color: lightblue">Top 20 keywords</p>
+	{% endif%}
+	<div class="row">
+		{# <div id="plot_container" class="col-md-8 col-md-offset-2">{{plot|safe}}</div>#}
+		<div class="col-md-12 ">{{plot|safe}}</div>
+	</div>
+</div>
+{% endblock content %}

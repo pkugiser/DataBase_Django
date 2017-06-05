@@ -1,0 +1,33 @@
+{% extends "main/base_nsb.html" %}
+{% block header %}
+	<div class="container">
+		<h3 style="color: lightblue">There are {{ data.paginator.count }} Results</h3>
+	</div>
+{% endblock header %}
+{% block content %}
+	<div class="container">
+		{% for item in data %}
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<a href="{% url 'main:userinfo' item.id %}">{{ item.screen_name}}</a>
+				</div>
+				<div class="panel-body">
+					Description:  {{ item.description }}
+				</div>
+			</div>
+			{% empty %}
+			There are no entries in the database.
+		{% endfor %}
+	</div>
+	<!-- 另一种分页显示方式 -->
+	<p class="text-center">
+		{% if data.has_previous %}
+			<a href="?page={{ data.previous_page_number }}&string={{string}}">Previous</a>
+		{% endif %}
+		{# data.paginator.number_pages 返回总页数 #}
+		<i style="color: lightblue">Page {{ data.number }} of {{ data.paginator.num_pages }}.</i>
+		{% if data.has_next %}
+			<a href="?page={{ data.next_page_number }}&string={{string}}">Next</a>
+		{% endif %}
+	</p>
+{% endblock content %}
