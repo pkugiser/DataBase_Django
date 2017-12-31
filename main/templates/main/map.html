@@ -1,29 +1,16 @@
-{% load bootstrap3 %}
-<!DOCTYPE html>
-<html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-	<style type="text/css">
-	body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
-	</style>
-	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZD8Es03LV0jiEvSfm2pLKVTdpGNYd1rr"></script>
-	<title>Map</title>
-	{% bootstrap_css %}
-	{% bootstrap_javascript %}
-</head>
-<body>
-	{% block nav %}
-		{% include "main/nav.html" %}
-	{% endblock nav %}
-	<div id="allmap"></div>
-</body>
-</html>
-<script type="text/javascript">
-	// 百度地图API功能
-	var map = new BMap.Map("allmap");    // 创建Map实例
-	map.centerAndZoom(new BMap.Point(120.5853, 31.2989), 12);  // 初始化地图,设置中心点坐标和地图级别
-	map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
-	map.setCurrentCity("苏州");          // 设置地图显示的城市 此项是必须设置的
-	map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
-</script>
+{% extends "main/mapbase.html" %}
+{% block header %}
+<h3 style="color: lightblue">地图 </h3>
+{% endblock header %}
+{% block content %}
+	<div id="container" style="width:1080px; height:780px"></div>
+	<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.2&key=caf311f4a319c559e83c98604e58f6e5"></script>
+	<script type="text/javascript">
+	var map = new AMap.Map('container', {
+	resizeEnable: true,
+	zoom: 11,
+	center: [120.610842,31.329724]
+	});
+	</script>
+	</Br>
+{% endblock content %}

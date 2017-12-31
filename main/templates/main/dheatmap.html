@@ -1,0 +1,102 @@
+{% extends "main/base.html" %}
+{% block header %}
+	<div class="container">
+		<h3 style="color: lightblue">时段统计热力图</h3>
+	</div>
+	<div>
+		<label for="hour" style="color: lightblue">时段选择</label>
+		<select id="hoursel" onchange="flushdata(this.id)">
+			<option>0 - 2</option>
+			<option>2 - 4</option>
+			<option>4 - 6</option>
+			<option>6 - 8</option>
+			<option>8 - 10</option>
+			<option>10 - 12</option>
+			<option>12 - 14</option>
+			<option>14 - 16</option>
+			<option>16 - 18</option>
+			<option>18 - 20</option>
+			<option>20 - 22</option>
+			<option>22 - 24</option>
+		</select>
+	</div>
+{% endblock header %}
+{% block content %}
+	<div  id="container" tabindex="0" style="width:1080px; height:780px"></div>
+	</Br>
+	<script src="http://webapi.amap.com/maps?v=1.4.2&key=caf311f4a319c559e83c98604e58f6e5"></script>
+	<script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
+	<script>
+	// 这部分数据需要从接口获得，格式参见 heatmap.js 里的
+	//heatmapData.forEach(function (i) {
+	//i["count"] = 1;
+	//});
+	// 这里只取了200个点展示，不知道咱们的数据规模
+	//heatmapData = heatmapData.slice(0, 200);
+	
+	let heatmapData = [];
+	var latR = {{ lat| safe }};
+	var lonR = {{ lon| safe }};
+	var dateR ={{ date| safe }}
+	for (var i = latR.length - 1; i >= 0; i--) {
+		var date = new Date(dateR[i]);
+		if(date.getHours()<2){
+	heatmapData.push({"lng": lonR[i],
+	"lat": latR[i],
+	"count": 1});
+	};
+	};
+	const dataLength = heatmapData.length;
+	const centerLng = heatmapData
+	.map(function (i) {
+	return i.lng;
+	})
+	.reduce(function (a, b) {
+	return a + b;
+	}) / dataLength;
+	const centerLat = heatmapData
+	.map(function (i) {
+	return i.lat;
+	})
+	.reduce(function (a, b) {
+	return a + b;
+	}) / dataLength;
+	const map = new AMap.Map('container', {
+	resizeEnable: true,
+	zoom: 5, // 这个根据咱们的数据调吧
+	center: [centerLng, centerLat],
+	});
+	let heatmap;
+	map.plugin(["AMap.Heatmap"], function () {
+	heatmap = new AMap.Heatmap(map, {
+	// 这两个参数都是用的默认的，感觉应该不用动了
+	radius: 25,
+	opacity: [0, 0.8],
+	});
+	heatmap.setDataSet({
+	data: heatmapData,
+	max: 5, // 这个需要根据数据调
+	});
+	});
+	function flushdata(x)
+	{
+		heatmapData = [];
+		var n = document.getElementById(x).selectedIndex;
+		console.log(n);
+		//console.log(heatmapData);
+		for (var i = latR.length - 1; i >= 0; i--) {
+		var date = new Date(dateR[i]);
+		if(date.getHours()>= 2*n && date.getHours()<2*n+2){
+			heatmapData.push({"lng": lonR[i],
+				"lat": latR[i],
+				"count": 1});
+		};
+		};
+	console.log(heatmapData.length);
+	heatmap.setDataSet({
+	data: heatmapData,
+	max: 5, // 这个需要根据数据调
+	});
+	}
+	</script>
+{% endblock content %}

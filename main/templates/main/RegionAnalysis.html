@@ -1,13 +1,70 @@
 {% extends "main/base.html" %}
 {% block header %}
-	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+	<h2 >UserInfo</h2>
+	<h3 style="color: lightblue">
+	<p><i>NickName</i> <a target="_blank"  href="https://weibo.com/u/{{userR.id}}">{{userR.screen_name}}</a>  <i>From</i> {{userR.location}} </p>
+	<small><p style="color: lightblue"><i>Description</i>: {{userR.description}}</p></small>
+	</h3>
 	<h3 style="color: lightblue">Region Analysis</h3>
 {% endblock header %}
 {% block content %}
-	<div class="container">
-		<div class="row">
-			{# <div id="plot_container" class="col-md-8 col-md-offset-2">{{plot|safe}}</div>#}
-			<div class="col-md-12 ">{{plot|safe}}</div>
-		</div>
-	</div>
+	<div id="container" style="width:1080px; height:780px"></div>
+	</Br>
+	<script src="http://webapi.amap.com/maps?v=1.4.2&key=caf311f4a319c559e83c98604e58f6e5"></script>
+	<script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
+	<script type="text/javascript">
+		var moveData = new Array();
+		var latR = {{ lat| safe}};
+		var lonR = {{ lon| safe}};
+		for (var i = latR.length - 1; i >= 0; i--) {
+	// 鼠标右键，审核元素，选择 console 可以看到输入的值。
+	moveData.push([lonR[i], latR[i]]);
+	};
+
+
+	const dataLength = moveData.length;
+	const centerLng = moveData
+	.map(function (i) {
+	return i[0];
+	})
+	.reduce(function (a, b) {
+	return a + b;
+	}) / dataLength;
+	const centerLat = moveData
+	.map(function (i) {
+	return i[1];
+	})
+	.reduce(function (a, b) {
+	return a + b;
+	}) / dataLength;
+
+	var map = new AMap.Map('container', {
+	resizeEnable: true,
+	center: [centerLng, centerLat],
+	zoom: 6  //zoom怎么根据坐标改变还是比较复杂的
+	});
+		
+	var polyline = new AMap.Polyline({
+	path: moveData,          //设置线覆盖物路径
+	strokeColor: "#3366FF", //线颜色
+	strokeOpacity: 1,       //线透明度
+	strokeWeight: 5,        //线宽
+	strokeStyle: "solid",   //线样式
+	strokeDasharray: [10, 5] //补充线样式
+	});
+	polyline.setMap(map);
+		
+		var marker = new AMap.Marker({
+		position: moveData[0],
+		//position: moveData[moveData.length-1],
+		title:"起点"
+	});
+		marker.setMap(map);
+		
+		var markert = new AMap.Marker({
+		position: moveData[moveData.length-1],
+		title: "终点"
+	});
+		markert.setMap(map);
+	</script>
 {% endblock content %}

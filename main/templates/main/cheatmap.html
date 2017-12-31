@@ -1,0 +1,63 @@
+{% extends "main/mapbase.html" %}
+{% block header %}
+	<div class="container">
+		<h3 style="color: lightblue">Category: {{ string }}</h3>
+	</div>
+{% endblock header %}
+{% block content %}
+	<div id="container" tabindex="0" style="width:1080px; height:780px"></div>
+	<script src="http://webapi.amap.com/maps?v=1.4.2&key=caf311f4a319c559e83c98604e58f6e5"></script>
+<script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
+	<script>
+
+	// 这部分数据需要从接口获得，格式参见 heatmap.js 里的
+	//heatmapData.forEach(function (i) {
+	//i["count"] = 1;
+	//});
+	// 这里只取了200个点展示，不知道咱们的数据规模
+	//heatmapData = heatmapData.slice(0, 200);
+	
+	let heatmapData = [];
+	var latR = {{ lat| safe }};
+	var lonR = {{ lon| safe }};
+	var numR = {{ num| safe }};
+	for (var i = latR.length - 1; i >= 0; i--) {
+	heatmapData.push({"lng": lonR[i],
+    "lat": latR[i],
+    "count": numR[i]});
+	};
+	const dataLength = heatmapData.length;
+	const centerLng = heatmapData
+	.map(function (i) {
+	return i.lng;
+	})
+	.reduce(function (a, b) {
+	return a + b;
+	}) / dataLength;
+	const centerLat = heatmapData
+	.map(function (i) {
+	return i.lat;
+	})
+	.reduce(function (a, b) {
+	return a + b;
+	}) / dataLength;
+
+	const map = new AMap.Map('container', {
+	resizeEnable: true,
+	zoom: 10, // 这个根据咱们的数据调吧
+	center: [centerLng, centerLat],
+	});
+	let heatmap;
+	map.plugin(["AMap.Heatmap"], function () {
+	heatmap = new AMap.Heatmap(map, {
+	// 这两个参数都是用的默认的，感觉应该不用动了
+	radius: 25,
+	opacity: [0, 0.8],
+	});
+	heatmap.setDataSet({
+	data: heatmapData,
+	max: 10, // 这个需要根据数据调
+	});
+	});
+	</script>
+{% endblock content %}

@@ -10,6 +10,7 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<a href="{% url 'main:userinfo' item.id %}">{{ item.screen_name}}</a>
+					{{ item.location}}
 				</div>
 				<div class="panel-body">
 					Description:  {{ item.description }}

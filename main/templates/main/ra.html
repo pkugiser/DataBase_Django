@@ -1,0 +1,14 @@
+{% extends "main/base.html" %}
+{% block header %}
+	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+	<h3 style="color: lightblue">Region Analysis</h3>
+{% endblock header %}
+{% block content %}
+<!-- 1607326654 -->
+	<div class="container">
+		<div class="row">
+			{# <div id="plot_container" class="col-md-8 col-md-offset-2">{{plot|safe}}</div>#}
+			<div class="col-md-12 ">{{plot|safe}}</div>
+		</div>
+	</div>
+{% endblock content %}

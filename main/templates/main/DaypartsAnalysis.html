@@ -2,6 +2,9 @@
 {% block header %}
 	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 	<h3 style="color: lightblue">Dayparts Analysis</h3>
+			<div align="right" style="color: #0095ff">
+			<a href="{% url 'main:dheatmap' %}">时段热力图</a>
+		</div>
 {% endblock header %}
 {% block content %}
 	<div class="container">

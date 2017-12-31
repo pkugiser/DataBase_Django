@@ -1,16 +1,18 @@
 {% extends "main/base_nsb.html" %}
 {% block header %}
 	<div style="color: lightblue">
+		<!-- 1644412911 -->
+		<!-- 1641815414-->
 		<h2 >UserInfo</h2>
 		<h3 style="color: lightblue">
-		<p><i>NickName</i> {{user.screen_name}} <i>From</i> {{user.location}} </p>
-		<small><p style="color: lightblue"><i>Description</i>: {{user.description}}</p></small>
+		<p><i>NickName</i> <a target="_blank"  href="https://weibo.com/u/{{userR.id}}">{{userR.screen_name}}</a>  <i>From</i> {{userR.location}} </p>
+		<small><p style="color: lightblue"><i>Description</i>: {{userR.description}}</p></small>
 		</h3>
 		<div align="right" style="color: #0095ff">
-			<a href="{% url 'main:ea' user.id %}">情绪分析</a>
-			<a href="{% url 'main:da' user.id %}">时段统计</a>
-			<a href="{% url 'main:pa' user.id %}">兴趣点提取</a>
-			<a href="{% url 'main:ra' user.id %}">地理位置</a>
+			<a href="{% url 'main:ea' userR.id %}">情绪分析</a>
+			<a href="{% url 'main:da' userR.id %}">时段统计</a>
+			<a href="{% url 'main:pa' userR.id %}">兴趣点提取</a>
+			<a href="{% url 'main:ra' userR.id %}">地理位置</a>
 		</div>
 	</div>
 {% endblock header %}
