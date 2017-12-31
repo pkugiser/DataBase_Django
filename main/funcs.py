@@ -1,13 +1,13 @@
 # coding=utf-8
-import glob
+#import glob
 import os
 import datetime
 import numpy as np
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 from plotly.offline import plot
 import plotly.graph_objs as go
 #from mpl_toolkits.basemap import Basemap 
-from matplotlib.patches import Polygon
+#from matplotlib.patches import Polygon
 from urllib.request import Request, urlopen
 from urllib.error import HTTPError, URLError
 from urllib.parse import quote
